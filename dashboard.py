@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import streamlit as st
 from pathlib import Path
 import textwrap
+import plotly.express as px
 
 
 st.set_page_config(
@@ -137,6 +138,206 @@ with tab_trend:
 
     st.plotly_chart(fig, width="stretch")
     st.caption("Source: PISA 2025, Annex B1, Table I.B1.2a.36")
+
+with tab_q2:
+    st.header("Has the Quality of Teaching Declined?")
+    st.write("Exploring changes in reported teacher support between 2015 and 2025 and its association with science performance.")
+
+  
+    teacher_data = pd.read_csv(DATA_DIR / "teacher_support_clean.csv")
+    science_data = pd.read_csv(DATA_DIR / "science_performance_clean.csv")
+
+    # First Visualisation: Changes in Teacher Support
+    st.subheader("Changes in Teacher Support (2015–2025)")
+
+    # Countries sorted by change in teacher support
+    teacher_sorted = teacher_data.sort_values("Change")
+
+    # five largest decreases and increases
+    largest_decreases = teacher_sorted.head(5)["Country"].tolist()
+    largest_increases = teacher_sorted.tail(5)["Country"].tolist()
+
+    default_countries = largest_decreases + largest_increases
+
+    # countries
+    teacher_countries = sorted(teacher_data["Country"].unique())
+
+    # choose countries
+    selected_teacher_countries = st.multiselect(
+        "Select countries to compare:",
+        options=teacher_countries,
+        default=default_countries,
+        key="teacher_support_countries"
+    )
+
+    # country filter
+    teacher_filtered = teacher_data[
+        teacher_data["Country"].isin(selected_teacher_countries)
+    ]
+
+    teacher_filtered = teacher_filtered.sort_values("Change")
+
+    # teacher support bar chart
+    fig_teacher = px.bar(
+        teacher_filtered,
+        x="Change",
+        y="Country",
+        orientation="h",
+        color="Change",
+        color_continuous_scale="RdYlGn",
+        color_continuous_midpoint=0,
+        title=None,
+        labels={
+            "Change": "Change in Mean Teacher Support Index",
+            "Country": "Country"
+        },
+        hover_data={
+            "Mean_Index_2015": ":.3f",
+            "Mean_Index_2025": ":.3f",
+            "Change": ":.3f"
+        }
+    )
+
+    fig_teacher.update_layout(
+        template="plotly_dark",
+        height=550,
+        yaxis={"categoryorder": "total ascending"},
+        margin=dict(l=20, r=20, t=20, b=20)
+    )
+
+    # Display
+    st.plotly_chart(fig_teacher, use_container_width=True)
+
+    st.caption(
+        "Between 2015 and 2025, reported teacher support increased "
+        "in 38 countries and decreased in 26 countries. "
+        "Teacher support is based on students' reports and does not "
+        "represent overall teaching quality."
+    )
+
+    # Second Visualisation: Teacher Support and Science Performance
+    st.divider()
+
+    st.subheader("Teacher Support and Science Performance")
+
+    st.write(
+        "This visualisation compares the association between teacher support "
+        "and science performance before and after accounting for "
+        "students' and schools' socioeconomic characteristics."
+    )
+
+    # countries
+    science_countries = sorted(science_data["Country"].unique())
+
+    # Interactive  
+    with st.expander("Highlight countries", expanded=False):
+
+        select_all_science = st.checkbox(
+            "Select All Countries",
+            value=False
+        )
+
+        if select_all_science:
+            selected_science_countries = science_countries
+        else:
+            selected_science_countries = st.multiselect(
+                "Select countries to highlight:",
+                options=science_countries,
+                default=[],
+                key="science_performance_countries"
+            )
+
+    # filter by countries
+    science_highlighted = science_data[
+        science_data["Country"].isin(selected_science_countries)
+    ]
+
+    # scatter plot
+    fig_science = px.scatter(
+        science_data,
+        x="Score_Before",
+        y="Score_After",
+        hover_name="Country",
+        hover_data={
+            "Score_Before": ":.2f",
+            "Score_After": ":.2f",
+            "Explained_Variance": ":.2f"
+        },
+        title=None,
+        labels={
+            "Score_Before": "Before Socioeconomic Adjustment (Score Points)",
+            "Score_After": "After Socioeconomic Adjustment (Score Points)",
+            "Explained_Variance": "Explained Variance (%)"
+        }
+    )
+
+    # display all countries 
+    fig_science.update_traces(
+        marker=dict(
+            size=9,
+            color="lightgrey",
+            opacity=0.7
+        )
+    )
+
+    # highlighted selected countries in orange
+    if not science_highlighted.empty:
+
+        fig_highlight = px.scatter(
+            science_highlighted,
+            x="Score_Before",
+            y="Score_After",
+            hover_name="Country",
+            hover_data={
+                "Score_Before": ":.2f",
+                "Score_After": ":.2f",
+                "Explained_Variance": ":.2f"
+            }
+        )
+
+        fig_highlight.update_traces(
+            marker=dict(
+                size=14,
+                color="orange",
+                opacity=1
+            )
+        )
+
+        for trace in fig_highlight.data:
+            fig_science.add_trace(trace)
+
+    # reference line 
+    fig_science.add_shape(
+        type="line",
+        x0=-15,
+        y0=-15,
+        x1=20,
+        y1=20,
+        line=dict(
+            color="red",
+            dash="dash",
+            width=2
+        )
+    )
+
+    # formatting
+    fig_science.update_layout(
+        template="plotly_dark",
+        height=550,
+        showlegend=False,
+        margin=dict(l=20, r=20, t=20, b=20)
+    )
+
+    st.plotly_chart(fig_science, use_container_width=True)
+
+    st.caption(
+        "Each point represents a country. "
+        "The red dashed line shows where estimates before and after "
+        "socioeconomic adjustment are equal. Points above the line "
+        "have higher adjusted estimates, while points below have lower estimates. "
+        "These associations do not establish causation. "
+        "Source: PISA 2025, Annex B1, Table I.B1.4.117."
+    )
 # Question 3
    
 with tab_q3:
