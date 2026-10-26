@@ -1,0 +1,67 @@
+Resource_Category,Resource_Indicator,Science_Correlation,Science_P_Value,Science_Partial_Correlation,Science_Partial_P_Value,Significant_R,Significant_Partial_R
+Shortage of education staff,Index of shortage of education staff,-0.02359,0.88828,0.29378,0.07759,False,False
+Shortage of education staff,Gap in the index of shortage of education staff between socio-economically advantaged and disadvantaged schools,-0.0487,0.77523,0.08001,0.64274,False,False
+Shortage of education staff,Instruction hindered to some extent or a lot by a lack of teaching staff,0.17238,0.30071,0.23103,0.1689,False,False
+Shortage of education staff,Instruction hindered to some extent or a lot by inadequate or poorly-qualified teaching staff,0.19213,0.24785,0.285,0.08732,False,False
+Shortage of education staff,Instruction hindered to some extent or a lot by a lack of non-teaching staff,-0.08972,0.59514,0.21052,0.21105,False,False
+Shortage of education staff,Instruction hindered to some extent or a lot by Inadequate or poorly-qualified non-teaching staff,-0.16117,0.34609,0.16835,0.31923,False,False
+Teaching staff,Student-teacher ratio,-0.4389,0.02302,-0.34596,0.06508,True,False
+Teaching staff,Language-of-instruction class size,-0.37854,0.0406,-0.0504,0.76764,True,False
+Teaching staff,Class size in science,-0.38226,0.04494,-0.01957,0.91121,True,False
+Teaching staff,Percentage of fully certified teachers,0.2133,0.22581,0.25978,0.14429,False,False
+Teaching staff,Percentage of teachers with postgraduate qualifications,-0.0748,0.67106,0.3588,0.03717,False,True
+Shortage of material resources,Shortage of material resources,-0.35223,0.05384,-0.101,0.55599,False,False
+Shortage of material resources,Gap in the index of shortage of material resources between socio-economically advantaged and disadvantaged schools,0.38994,0.01704,0.30119,0.07425,True,False
+Shortage of material resources,Instruction hindered to some extent or a lot by a lack of educational material,-0.35357,0.05308,-0.16565,0.34027,False,False
+Shortage of material resources,Instruction hindered to some extent or a lot by inadequate or poor-quality educational material,-0.37416,0.04256,-0.14374,0.40566,True,False
+Shortage of material resources,Instruction hindered to some extent or a lot by a lack of physical infrastructure,-0.29447,0.09874,-0.19258,0.27085,False,False
+Shortage of material resources,Instruction hindered to some extent or a lot by inadequate or poor-quality physical infrastructure,-0.25571,0.14588,-0.13279,0.44136,False,False
+Digital devices,Instruction hindered to some extent or a lot by a lack of digital resources,-0.44374,0.02004,-0.36893,0.04815,True,True
+Digital devices,Instruction hindered to some extent or a lot by inadequate or poor-quality digital resources,-0.38902,0.03625,-0.3489,0.05936,True,False
+Digital devices,Computers per student,0.4435,0.00597,0.46251,0.00451,True,True
+Digital devices,Tablet devices per student,0.34311,0.03762,0.24654,0.14719,True,False
+Digital devices,E-book readers per student,-0.07746,0.65059,-0.21065,0.2377,False,False
+Digital devices,School computers connected to the Internet available for teachers per teacher,0.59718,0.0001,0.56846,0.0003,True,True
+School's preparedness for digital learning,Index of school's preparedness for digital learning,0.46874,0.00299,0.21272,0.20623,True,False
+School's preparedness for digital learning,Gap in the index of school's preparedness for digital learning between socio-economically advantaged and disadvantaged schools,-0.11752,0.49442,-0.23824,0.1855,False,False
+School's preparedness for digital learning,The number of digital devices connected to the Internet is sufficient,0.58252,0.00012,0.48169,0.00254,True,True
+School's preparedness for digital learning,The school’s Internet bandwidth or speed is sufficient,0.54656,0.00038,0.30186,0.06941,True,False
+School's preparedness for digital learning,The number of digital devices for instruction is sufficient,0.52308,0.00075,0.46822,0.00347,True,True
+School's preparedness for digital learning,Digital devices at the school are sufficiently powerful in terms of computing capacity,0.54818,0.00037,0.37912,0.02066,True,True
+School's preparedness for digital learning,The availability of adequate software is sufficient,0.60798,5e-05,0.40688,0.01245,True,True
+School's preparedness for digital learning,Teachers have the necessary technical and pedagogical skills to integrate digital devices in instruction,0.24434,0.13929,0.02056,0.90384,False,False
+School's preparedness for digital learning,Teachers have sufficient time to prepare lessons integrating digital devices,-0.00078,0.9963,-0.30303,0.09506,False,False
+School's preparedness for digital learning,Effective professional resources for teachers to learn how to use digital devices are available,0.22029,0.18386,0.00223,0.98955,False,False
+School's preparedness for digital learning,An effective online learning support platform is available,0.38005,0.01859,0.21747,0.19603,True,False
+School's preparedness for digital learning,Teachers are offered incentives to integrate digital devices in their teaching,0.17577,0.29116,-0.01415,0.93379,False,False
+School's preparedness for digital learning,The curriculum of the school is suited for using digital devices effectively,0.40317,0.01335,-0.00348,0.98393,True,False
+School's preparedness for digital learning,The school has sufficient qualified technical assistant staff,0.36328,0.02497,0.05735,0.73599,True,False
+School policies for using digital devices,The use of cell phones is not allowed on school premises and the school has formal guidelines for the use of digital devices for teaching and learning in specific subjects,0.0665,0.69161,-0.32459,0.07632,False,False
+School policies for using digital devices,Its own written statement about the general use of digital devices on school premises,0.40776,0.01105,0.32956,0.04638,True,True
+School policies for using digital devices,The use of cell phones is not allowed on school premises,0.00351,0.98332,-0.32674,0.07465,False,False
+School policies for using digital devices,Has formal guidelines for the use of digital devices for teaching and learning in specific subjects,0.02701,0.8721,-0.3022,0.09585,False,False
+School policies for using digital devices,Teachers establish rules for when students may use digital devices during lessons,0.2184,0.18774,0.46554,0.00369,False,True
+School policies for using digital devices,Teachers establish rules in collaboration with students about their use of digital devices at school or in class,0.15489,0.35312,-0.10049,0.55795,False,False
+School policies for using digital devices,Has a specific programme to prepare students for responsible Internet behaviour,0.29505,0.07213,-0.16236,0.34957,False,False
+School policies for using digital devices,Has a specific policy about using social networks in teaching and learning,0.21094,0.20365,-0.14506,0.40149,False,False
+School policies for using digital devices,The school has a specific programme to promote collaboration on the use of digital devices among teachers,0.20592,0.21485,-0.26829,0.13426,False,False
+School policies for using digital devices,"Has a scheduled time for teachers to meet to share, evaluate or develop instructional materials and approaches that employ digital devices",0.22714,0.17024,-0.12738,0.45974,False,False
+Student use of digital devices,Percentage of students who spent more than 2 hours per day using digital devices for learning activities at school,0.06565,0.69945,-0.18075,0.307,False,False
+Student use of digital devices,Percentage of students who spent up to 1 hour per day using digital devices for leisure at school,-0.11396,0.50735,0.08707,0.61361,False,False
+Student use of digital devices,Percentage of students who spent up to 40 hours per week using digital devices in total (for learning and leisure),0.03649,0.83023,0.14908,0.38553,False,False
+Student use of digital devices,Percentage of students reporting that students never or almost never get distracted by using digital devices in science lesson,0.402,0.01235,-0.0753,0.65962,True,False
+Student use of artificial intelligence,Index of use of Artificial Intelligence,-0.46765,0.01548,-0.21429,0.22337,True,False
+Student use of artificial intelligence,Gap in the index of use of Artificial Intelligence between socio-economically advantaged and disadvantaged schools,0.20998,0.21225,0.03981,0.81768,False,False
+Student use of artificial intelligence,Percentage of students who use Artificial Intelligence to summarise a text at least once or twice a week,-0.38697,0.03707,-0.24669,0.16533,True,False
+Student use of artificial intelligence,Percentage of students who use Artificial Intelligence to conduct preliminary research on a topic at least once or twice a week,-0.44741,0.01926,-0.24501,0.16799,True,False
+Student use of artificial intelligence,Percentage of students who use Artificial Intelligence to draft texts for writing assignments at least once or twice a week,-0.42611,0.02426,-0.12431,0.47037,True,False
+Student use of artificial intelligence,Percentage of students who use Artificial Intelligence to help with learning at least once or twice a week,-0.21657,0.21224,0.0771,0.65015,False,False
+Learning time outside regular instruction,Time spent on homework in science per day in a typical school week (in hours),-0.47071,0.01498,-0.1815,0.29798,True,False
+Learning time outside regular instruction,Time spent on homework in all subjects per day in a typical school week (in hours),-0.37378,0.04273,-0.27152,0.13009,True,False
+Learning time outside regular instruction,Percentage of students who participated in individual tutoring with a person in the same room,-0.66845,0.00267,-0.37531,0.05173,True,False
+Learning time outside regular instruction,Percentage of students who participated in large group study or practice (8 or more students) where the tutor and the students are in the same room,-0.48486,0.01567,-0.34684,0.06862,True,False
+Learning time outside regular instruction,"Percentage of students who participated in group real-time lessons given by a tutor on a video communication program (e.g. Zoom, Skype, Google® Meet, Microsoft® Teams)",-0.68663,0.00227,-0.45181,0.02405,True,True
+Learning time outside regular instruction,"Percentage of students who participated in internet, computer program or application or video-recorded lessons",0.04301,0.80332,-0.2174,0.23097,False,False
+Study help at school,Percentage of students with access to rooms where they can do their homework,0.5965,8e-05,0.26881,0.10767,True,False
+Study help at school,Percentage of students who receive staff help with homework,0.45275,0.00431,-0.08154,0.63367,True,False
+Study help at school,Percentage of students who receive peer‑to‑peer tutoring,0.07675,0.64695,-0.04861,0.77562,False,False
