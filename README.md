@@ -1,20 +1,5 @@
- # Data Analysis Project
 
-## 1. Overview
-
-This project focuses on data cleaning, exploratory data analysis, data visualisation, and the development of an interactive dashboard using Python.
-
-Jupyter Notebooks are used to process and explore datasets, identify patterns, and generate visualisations. A Streamlit dashboard will present the analysis results in an interactive, user-friendly format.
-
-## 2. Project Objectives
-
-- Clean and prepare datasets for analysis.
-- Explore relationships, trends, and patterns in the data.
-- Create visualisations to communicate key findings.
-- Develop an interactive dashboard using Streamlit.
-- Collaborate effectively through Git and GitHub.
-
-## 3. Project Structure
+## 1. Project Structure
 
 ```text
 data-analysis/
@@ -40,7 +25,7 @@ data-analysis/
 | `README.md` | Provides project documentation and setup instructions. |
 | `.gitignore` | Excludes specified files and folders from Git tracking. |
 
-## 4. Technologies Used
+## 2. Technologies Used
 
 - **Python** — Data analysis and processing.
 - **Jupyter Notebook** — Interactive data cleaning and exploration.
@@ -49,7 +34,7 @@ data-analysis/
 - **Streamlit** — Interactive dashboard development.
 - **Git and GitHub** — Version control and team collaboration.
 
-## 5. Getting Started
+## 3. Getting Started
 
 ### Prerequisites
 
@@ -100,7 +85,7 @@ streamlit run dashboard.py
 
 The dashboard will open in your default browser, or the terminal will display a local URL that you can open manually.
 
-## 6. Team Collaboration
+## 4. Team Collaboration
 
 This project uses GitHub for version control and collaboration. Team members should:
 
@@ -121,27 +106,16 @@ git push
 
 Avoid committing temporary files, virtual environments, credentials, or datasets that are restricted from sharing.
 
-## 7. Data Management
+## 5. Data Management
 
 The project may use Excel datasets as input for data cleaning, analysis, and visualisation. Before sharing datasets through GitHub, confirm that they can be redistributed and that their file sizes are appropriate for the repository.
 
 If processed datasets are generated during analysis, document their format and location so that all team members can reproduce the workflow.
 
-## 8. Project Status
+## 6. Project Status
 
 **Current stage:** Data cleaning and visualisation.  
 **Planned development:** Interactive dashboard using Streamlit.
 
 Update this section as the project progresses.
 
-## 9. Contributors
-
-- [Team Member 1]
-- [Team Member 2]
-- [Team Member 3]
-
-Replace the placeholders with the names of the project contributors.
-
-## 10. License
-
-Specify the project license here if required. For academic projects, follow the requirements provided by the course or institution.
