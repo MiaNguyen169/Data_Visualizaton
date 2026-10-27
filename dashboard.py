@@ -32,6 +32,39 @@ def load_data():
 
 science_long, oecd, merged, inequality_oecd, relationship = load_data()
 
+# AI use data (Q1)
+RAW_DIR = Path(__file__).parent / "Data"
+
+sheet_map = {
+    "To summarise a text I had to read": "1.5",
+    "To conduct preliminary research on a new topic": "2.5",
+    "To draft texts for writing assignments": "3.5",
+    "To help me learn": "4.5"
+}
+
+frequency_columns = [
+    "Never or almost never",
+    "About once or twice a year",
+    "About once or twice a month",
+    "About once or twice a week",
+    "Every day or almost every day"
+]
+
+
+@st.cache_data
+def load_ai_sheet(sheet):
+    data = pd.read_excel(
+        RAW_DIR / "AI_use_science_scores_manual.xlsx", sheet_name=sheet
+    )
+    df_long = data.melt(
+        id_vars=["Countries"],
+        value_vars=frequency_columns,
+        var_name="Frequency",
+        value_name="Score"
+    )
+    df_long["Score"] = pd.to_numeric(df_long["Score"], errors="coerce")
+    return df_long.dropna()
+
 #sidebar selection
 st.sidebar.header("Filter")
 all_countries = sorted(merged["Country"].unique())
@@ -139,6 +172,66 @@ with tab_trend:
     st.plotly_chart(fig, width="stretch")
     st.caption("Source: PISA 2025, Annex B1, Table I.B1.2a.36")
 
+# Question 1
+
+with tab_q1:
+    st.header("PISA Science Scores by AI Usage Task")
+
+    selected_label = st.selectbox(
+        "Select AI Use Case:", list(sheet_map.keys()), key="ai_use"
+    )
+    selected_sheet = sheet_map[selected_label]
+
+    view_mode = st.radio(
+        "View Mode:",
+        ["All Countries & OECD Average", "OECD Average Only"],
+        key="ai_view"
+    )
+
+    df_long = load_ai_sheet(selected_sheet)
+    df_countries = df_long[df_long["Countries"] != "OECD average"]
+    df_oecd = (
+        df_long[df_long["Countries"] == "OECD average"]
+        .set_index("Frequency").loc[frequency_columns].reset_index()
+    )
+
+    fig = go.Figure()
+
+    if view_mode == "All Countries & OECD Average":
+        fig.add_trace(go.Scatter(
+            x=df_countries["Frequency"], y=df_countries["Score"],
+            mode="markers",
+            name="Countries",
+            marker=dict(color="lightblue", size=8, opacity=0.5),
+            customdata=df_countries["Countries"],
+            hovertemplate="%{customdata}<br>%{x}<br>Score: %{y:.1f}<extra></extra>"
+        ))
+        y_range = [350, 630]
+    else:
+        y_range = [460, 520]
+
+    fig.add_trace(go.Scatter(
+        x=df_oecd["Frequency"], y=df_oecd["Score"],
+        mode="lines+markers",
+        name="OECD average",
+        line=dict(color="magenta", width=3),
+        marker=dict(color="magenta", size=16, symbol="diamond"),
+        hovertemplate="OECD average<br>%{x}<br>Score: %{y:.1f}<extra></extra>"
+    ))
+
+    fig.update_layout(
+        title=f'Mean score in science by frequency of AI use: "{selected_label}"',
+        xaxis=dict(
+            title="Frequency of AI Use",
+            categoryorder="array",
+            categoryarray=frequency_columns,
+            tickangle=-25
+        ),
+        yaxis=dict(title="Mean Score", range=y_range),
+        height=500
+    )
+    st.plotly_chart(fig, width="stretch")
+
 with tab_q2:
     st.header("Has the Quality of Teaching Declined?")
     st.write("Exploring changes in reported teacher support between 2015 and 2025 and its association with science performance.")
@@ -206,7 +299,7 @@ with tab_q2:
     )
 
     # Display
-    st.plotly_chart(fig_teacher, use_container_width=True)
+    st.plotly_chart(fig_teacher, width="stretch")
 
     st.caption(
         "Between 2015 and 2025, reported teacher support increased "
@@ -328,7 +421,7 @@ with tab_q2:
         margin=dict(l=20, r=20, t=20, b=20)
     )
 
-    st.plotly_chart(fig_science, use_container_width=True)
+    st.plotly_chart(fig_science, width="stretch")
 
     st.caption(
         "Each point represents a country. "
