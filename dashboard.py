@@ -120,8 +120,8 @@ col3.metric(
 )
 
 # Tab and Line chart in overview 
-tab_trend, tab_q1, tab_q2, tab_q3, tab_appendix = st.tabs([
-    "Trend", "Question01 - AI", "Question02 - Teaching", "Question03 - Economic factors", "Appendix"
+tab_trend, tab_q1, tab_q2, tab_q3 = st.tabs([
+    "Trend", "Question01 - AI", "Question02 - Teaching", "Question03 - Economic factors"
 ])
 
 with tab_trend:
