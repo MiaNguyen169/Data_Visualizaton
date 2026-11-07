@@ -176,7 +176,11 @@ with tab_trend:
 
 with tab_q1:
     st.header("PISA Science Scores by AI Usage Task")
-
+    st.write(
+    "This chart explores differences in science performance "
+    "across students reporting different frequencies of AI use. "
+    "Please Select an AI task to compare the patterns."
+    )
     selected_label = st.selectbox(
         "Select AI Use Case:", list(sheet_map.keys()), key="ai_use"
     )
@@ -231,11 +235,14 @@ with tab_q1:
         height=500
     )
     st.plotly_chart(fig, width="stretch")
+    st.caption(
+    "Source: PISA 2025, AI use and science performance data. "
+    "Differences between groups show associations, not causal effects."
+    )
 
 with tab_q2:
-    st.header("Has the Quality of Teaching Declined?")
-    st.write("Exploring changes in reported teacher support between 2015 and 2025 and its association with science performance.")
-
+    st.header("How has reported teacher support changed?")
+    st.write("This question explores changes in reported teacher support between 2015 and 2025 and its association with science performance.")
   
     teacher_data = pd.read_csv(DATA_DIR / "teacher_support_clean.csv")
     science_data = pd.read_csv(DATA_DIR / "science_performance_clean.csv")
@@ -435,6 +442,11 @@ with tab_q2:
    
 with tab_q3:
     st.header("Do economic factors explain lower science scores?")
+    st.write(
+    "This question explores how socioeconomic differences in "
+    "digital resource shortages are associated with science performance, "
+    "and whether changes in shortages correspond to changes in scores."
+    )
 
     # ---------- Chart 1: resource gap vs science 2025 (main chart) ----------
     gap = merged.dropna(subset=["Socioeconomic_Gap_2025", "2025"]).copy()
@@ -496,7 +508,7 @@ with tab_q3:
     )
 
     fig.update_layout(
-        title="Bigger resource gap between school types, lower science scores",
+        title="Larger digital resource gaps are associated with lower science scores",
         xaxis_title="Digital resource shortage gap, disadvantaged − advantaged (pp)",
         yaxis_title="Mean science score (2025)",
         height=520
@@ -609,7 +621,7 @@ with tab_q3:
     fig.add_vline(x=0, line_color="#8a8983", line_width=1.5)
 
     fig.update_layout(
-        title="Resource correlations shrink after accounting for GDP",
+        title="Digital resource–science correlations before and after GDP adjustment",
         xaxis=dict(
             title="Correlation with science (OECD countries)",
             range=[-1, 1],
@@ -624,57 +636,83 @@ with tab_q3:
     st.plotly_chart(fig, width="stretch")
     st.caption("Source: PISA 2025, Annex B1, Table I.B1.4.187")
     
-    # ---------- Chart 4: change vs change (appendix) ----------
-    with st.expander("Appendix: change in shortages vs change in science (2022–2025)"):
-        change = merged.dropna(
-            subset=["Digital_Lack_Change", "Science_Change_2022_2025"]
-        ).copy()
+        # ---------- Chart 4: change vs change ----------
+    st.subheader(
+        "Changes in Digital Resource Shortages vs Science Scores (2022–2025)"
+    )
 
-        drop_outliers = st.checkbox("Exclude Uzbekistan and Albania (outliers)")
-        if drop_outliers:
-            change = change[~change["Country"].isin(["Uzbekistan", "Albania"])]
-            
-        x = change["Digital_Lack_Change"]
-        y = change["Science_Change_2022_2025"]
+    change = merged.dropna(
+        subset=["Digital_Lack_Change", "Science_Change_2022_2025"]
+    ).copy()
 
-        # Linear trend
-        m, b = np.polyfit(x, y, 1)
-        x_line = np.linspace(x.min(), x.max(), 100)
+    drop_outliers = st.checkbox(
+        "Exclude Uzbekistan and Albania (outliers)"
+    )
 
-        fig = go.Figure()
+    # Only filter data when checkbox is selected
+    if drop_outliers:
+        change = change[
+            ~change["Country"].isin(["Uzbekistan", "Albania"])
+        ]
 
-        fig.add_trace(go.Scatter(
-            x=x, y=y,
-            mode="markers",
-            name="Countries",
-            marker=dict(color="#3B82B8", size=9),
-            customdata=change["Country"],
-            hovertemplate="%{customdata}<br>Shortage change: %{x:.1f} pp<br>Score change: %{y:.0f}<extra></extra>"
-        ))
+    # Define X and Y after filtering
+    x = change["Digital_Lack_Change"]
+    y = change["Science_Change_2022_2025"]
 
-        fig.add_trace(go.Scatter(
-            x=x_line, y=m * x_line + b,
-            mode="lines",
-            name="Linear trend",
-            line=dict(color="#C65A49", width=2),
-            hoverinfo="skip"
-        ))
-        fig.add_hline(y=0, line_color="#b4b2a9")
-        fig.add_vline(x=0, line_color="#b4b2a9")
-        fig.add_annotation(
-            xref="paper", yref="paper", x=0.01, y=0.99,
-            text=(
-                f"Pearson r = {x.corr(y):.2f}<br>"
-                f"Spearman = {x.corr(y, method='spearman'):.2f}<br>"
-                f"n = {len(change)}"
-            ),
-            showarrow=False, align="left"
+    # Linear trend
+    m, b = np.polyfit(x, y, 1)
+    x_line = np.linspace(x.min(), x.max(), 100)
+
+    fig = go.Figure()
+
+    fig.add_trace(go.Scatter(
+        x=x, y=y,
+        mode="markers",
+        name="Countries",
+        marker=dict(color="#3B82B8", size=9),
+        customdata=change["Country"],
+        hovertemplate=(
+            "%{customdata}<br>"
+            "Shortage change: %{x:.1f} pp<br>"
+            "Score change: %{y:.0f}<extra></extra>"
         )
-        fig.update_layout(
-            xaxis_title="Change in digital resource shortages (pp)",
-            yaxis_title="Change in mean science score",
-            height=450
-        )
-        st.plotly_chart(fig, width="stretch")
-        st.caption("The correlation depends on a few outliers: tick the box to see r drop.")
-        
+    ))
+
+    fig.add_trace(go.Scatter(
+        x=x_line, y=m * x_line + b,
+        mode="lines",
+        name="Linear trend",
+        line=dict(color="#C65A49", width=2),
+        hoverinfo="skip"
+    ))
+
+    fig.add_hline(y=0, line_color="#b4b2a9")
+    fig.add_vline(x=0, line_color="#b4b2a9")
+
+    fig.add_annotation(
+        xref="paper",
+        yref="paper",
+        x=0.01,
+        y=0.99,
+        text=(
+            f"Pearson r = {x.corr(y):.2f}<br>"
+            f"Spearman = {x.corr(y, method='spearman'):.2f}<br>"
+            f"n = {len(change)}"
+        ),
+        showarrow=False,
+        align="left"
+    )
+
+    fig.update_layout(
+        xaxis_title="Change in digital resource shortages (pp)",
+        yaxis_title="Change in mean science score",
+        height=450
+    )
+
+    st.plotly_chart(fig, width="stretch")
+
+    st.caption(
+        "The observed correlation is sensitive to outliers. "
+        "Use the checkbox to compare results with and without "
+        "Uzbekistan and Albania. Correlation does not establish causation."
+    )
